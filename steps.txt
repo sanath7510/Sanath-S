@@ -1,0 +1,9 @@
+ python.exe .\main.py .\20170512-110547\20170512-110547.pb .\20170512-110547\ids\
+
+python.exe main.py 20170512-110547\20170512-110547.pb 20170512-110547\ids\
+
+pip install easygui
+pip install Scikit-learn
+pip install tensorflow==1.15
+pip install opencv-python
+conda info --envs

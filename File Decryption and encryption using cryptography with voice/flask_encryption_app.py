@@ -373,17 +373,16 @@ def decrypt():
     if not password or not up:
         flash('Password and file are required.')
         return redirect(url_for('decryption_menu'))
+
     data = up.read()
     try:
         filename, plaintext = decrypt_with_password_and_filename(password, data)
+        buf = BytesIO(plaintext)
+        buf.seek(0)
+        return send_file(buf, as_attachment=True, download_name=filename)
     except Exception as e:
-        flash('Decryption failed: ' + str(e))
+        flash(f"Decryption failed: {str(e)}")
         return redirect(url_for('decryption_menu'))
-
-    buf = BytesIO(plaintext)
-    buf.seek(0)
-    return send_file(buf, as_attachment=True, download_name=filename)
-
 @app.route("/exit", methods=["POST"])
 def exit_app():
     shutdown = request.environ.get("werkzeug.server.shutdown")
